@@ -96,9 +96,25 @@ class ProblemSolutions {
 
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
-        // ADD YOU CODE HERE
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        return null;
+        // Populate Priority Queue with arrays 1 and 2
+        for (int i : array1){
+            pq.add(i);
+        }
+        for (int j : array2){
+            pq.add(j);
+        }
+
+        // Create array with size equal to the queue
+        int [] sortedArray = new int[pq.size()];
+
+        // Iterate through the queue and populate the array with elements pushed from the queue
+        for (int x = 0; !pq.isEmpty(); x++){
+            sortedArray[x] = pq.poll();
+        }
+
+        return sortedArray;
     }
 
 }
