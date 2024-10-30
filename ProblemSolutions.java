@@ -32,9 +32,21 @@ class ProblemSolutions {
 
     public boolean isSubset(int list1[], int list2[]) {
 
-        // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        // Create Hash Table
+        Hashtable<Integer, Integer> ht = new Hashtable<>(list1.length);
 
-        return false;
+        // Populate Hash Table with values from list1 using the array elements as keys
+        for (int i = 0; i < list1.length; i++){
+            ht.put(i, list1[i]);
+        }
+        //  Compare Hash Table to list2 using contains() method and if there are any values
+        //  not in the table, return false
+        for (int j = 0; j < list2.length; j++) {
+            if (!ht.contains(list2[j])) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
