@@ -65,9 +65,19 @@ class ProblemSolutions {
 
     public int findKthLargest(int[] array, int k) {
 
-        // ADD YOUR CODE HERE
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        return 0;
+        // Add array elements to Priority Queue
+        for (int i : array) {
+            pq.add(i);
+
+            // Any time the queue becomes larger than k, remove the head node
+            if (pq.size() > k){
+                pq.poll();
+            }
+        }
+        // Once queue size is k, peek the head node since it must now be the Kth largest
+        return pq.peek();
     }
 
 
