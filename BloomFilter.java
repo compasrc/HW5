@@ -24,7 +24,7 @@ import java.lang.Math;
  * required for the set. It effectively works as follows:
  *    1) We allocate 'm' bits to represent the set data.
  *    2) We provide a hash function, which, instead of a single hash code, 
-         produces'k' hash codes and sets those bits.
+         produces 'k' hash codes and sets those bits.
  *    3) To add an element to the set, we derive bit indexes from all 'k' 
          hash codes and set those bits.
  *    4) To determine if an element is in the set, we again calculate the 
@@ -36,7 +36,7 @@ import java.lang.Math;
  * of "accidentally" setting a combination of bits that corresponds to an 
  * element that isn't actually in the set. However, through tuning the bloom 
  * filter setup based on the expected data, we mathematically have control 
- * over the desired false positive probability rate that we want to received
+ * over the desired false positive probability rate that we want to receive
  * based on probability theory.
  *
  * False Positive rate discussion:
@@ -224,7 +224,18 @@ class BloomFilter {
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
 
-        return false;
+        // Similar logic to add(), iterate through the number of hashes and set the bits
+        // for each 'k' hash codes
+        for (int i = 0; i < noHashes; i++){
+            long hc = hashCode(s, i);
+            int bitNo = (int) (hc) & this.hashMask;
+
+            // Return false if any bits are not set, meaning String s is must not in the set
+            if (!data.get(bitNo)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
