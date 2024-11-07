@@ -370,44 +370,44 @@ public class    Main {
         table.clear();
 
 
-//        // Populate the Cuckoo Hash table and corresponding hashset
-//        // with 16,000 randomly generated strings.
-//
-//        CuckooHash<String, String> table2 = new CuckooHash<String, String>(10);
-//        hashset1.clear(); // reuse the hashset from earlier.
-//
-//
-//        for (int i = 0 ; i < 32000 ; i++ ) {
-//            String string = bf1.randomString(random);
-//            table2.put(string, string);
-//            hashset1.add(string);
-//        }
-//
-//
-//        // Randomly generate strings and probe the Cuckoo Hash table. If the
-//        // hash table returns null (not found), then the string should not be in
-//        // the corresponding hashset. If the cuckoo hash table locates the string,
-//        // it should also be in the hashset.
-//
-//        for (int i = 0 ; i < 128000 ; i++ ) {
-//            String string = bf1.randomString(random);
-//            String cuckoofound = table2.get(string);
-//            boolean hashsetfound = hashset1.contains(string);
-//
-//            if ( cuckoofound == null && hashsetfound ) {
-//                // String not found in cuckoo table, but found in hashset, error case.
-//                cuckooFailure = true;
-//                System.out.println("Error 23: Test Failure);");
-//                break; // simple break from loop, test failed.
-//            }
-//
-//            if ( cuckoofound != null && ! hashsetfound ) {
-//                // If string found in cuckoo table, but not found in hashset, error case.
-//                cuckooFailure = true;
-//                System.out.println("Error 24: Test Failure);");
-//                break; // simple break from loop, test failed.
-//            }
-//        }
+        // Populate the Cuckoo Hash table and corresponding hashset
+        // with 16,000 randomly generated strings.
+
+        CuckooHash<String, String> table2 = new CuckooHash<String, String>(10);
+        hashset1.clear(); // reuse the hashset from earlier.
+
+
+        for (int i = 0 ; i < 32000 ; i++ ) {
+            String string = bf1.randomString(random);
+            table2.put(string, string);
+            hashset1.add(string);
+        }
+
+
+        // Randomly generate strings and probe the Cuckoo Hash table. If the
+        // hash table returns null (not found), then the string should not be in
+        // the corresponding hashset. If the cuckoo hash table locates the string,
+        // it should also be in the hashset.
+
+        for (int i = 0 ; i < 128000 ; i++ ) {
+            String string = bf1.randomString(random);
+            String cuckoofound = table2.get(string);
+            boolean hashsetfound = hashset1.contains(string);
+
+            if ( cuckoofound == null && hashsetfound ) {
+                // String not found in cuckoo table, but found in hashset, error case.
+                cuckooFailure = true;
+                System.out.println("Error 23: Test Failure);");
+                break; // simple break from loop, test failed.
+            }
+
+            if ( cuckoofound != null && ! hashsetfound ) {
+                // If string found in cuckoo table, but not found in hashset, error case.
+                cuckooFailure = true;
+                System.out.println("Error 24: Test Failure);");
+                break; // simple break from loop, test failed.
+            }
+        }
 
 
 
