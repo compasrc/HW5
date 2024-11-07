@@ -129,7 +129,7 @@ public class CuckooHash<K, V> {
 	/**
 	 * Method clear
 	 *
-	 * Removes all elements in the table, it does not rest the size of 
+	 * Removes all elements in the table, it does not reset the size of
      * the hashmap. Optionally, we could reset the CAPACITY to its
      * initial value when the object was instantiated.
 	 */
@@ -218,7 +218,7 @@ public class CuckooHash<K, V> {
 	 * MAKE SURE YOU UNDERSTAND THE HINTS:
 	 *
 	 * HINT 1: To make sure you pass the provided tests in main, follow this rule:
-	 *          - Given a <key, value> via method's invocation, the bucket it
+	 *          - Given a <key, value> via method's invocation, the bucket is
 	 *            determined by hashing the 'key'
 	 *          - Normally, we would not allow dupe keys, for our purposes here we
 	 *            WILL allow. What will be unique in this assignment's implementation
@@ -244,13 +244,56 @@ public class CuckooHash<K, V> {
      * @param value the value of the element to add
 	 */
 
- 	public void put(K key, V value) {
+	public void put(K key, V value) {
 
-		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
-		// Also make sure you read this method's prologue above, it should help
-		// you. Especially the two HINTS in the prologue.
+	// After trying for hours, I don't think I will be able to figure this one out.
+	// I tried some print statements to debug it, but still having issues generating
+	// the table with correct K, V pairs in order
 
-		return;
+		int pos1 = hash1(key);
+		int pos2 = hash2(key);
+
+		if (table[pos1] != null && table[pos1].getBucKey().equals(key)) {
+			if (table[pos1].getValue().equals(value)) {
+				return;
+			}
+		}
+
+		if (table[pos2] != null && table[pos2].getBucKey().equals(key)) {
+			if (table[pos2].getValue().equals(value)) {
+				return;
+			}
+		}
+
+		Bucket<K, V> bucket = new Bucket<>(key, value);
+		int count = 0;
+		int pos = pos1;
+
+		while (count < CAPACITY) {
+			if (table[pos] == null) {
+				table[pos] = bucket;
+				return;
+			}
+
+			Bucket<K, V> kickedOutBucket = table[pos];
+			table[pos] = bucket;
+			bucket = kickedOutBucket;
+
+			if (pos == pos1) {
+				pos = pos2;
+			} else {
+				pos = pos1;
+			}
+			count++;
+
+		}
+
+		if (count == CAPACITY) {
+			rehash();
+			put(key, value);
+			return;
+		}
+
 	}
 
 
